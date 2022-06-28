@@ -1,0 +1,11 @@
+body {
+    background-image: url(https://static.vecteezy.com/system/resources/previews/003/331/185/non_2x/high-resolution-world-map-with-continent-in-different-color-free-vector.jpg);
+}
+
+.input-group {
+    position: relative;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    width: 50%;
+}

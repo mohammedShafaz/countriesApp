@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="stylesheet" href="./cstyle.css">
+</head>
+
+<body>
+    <div class="container mt-5">
+        <div class="row mb-5">
+            <div class="col-4"></div>
+            <div class="col-4 input-group mb-3 ">
+                <input type="text" class="form-control" placeholder="enter country name" id="cntry" aria-label="enter country name" aria-describedby="button-addon2">
+                <button class="btn btn-outline-success" type="button" onclick="fetchData()" id="button-addon2">fetchData</button>
+            </div>
+            <div class="col-4"></div>
+        </div>
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-8 " id="result">
+
+            </div>
+            <div class="col-2"></div>
+        </div>
+    </div>
+</body>
+<script>
+    function fetchData() {
+
+        let countryName = cntry.value;
+
+        fetch(`https://restcountries.com/v2/name/${countryName}?fullText=true`).
+        then(res => res.json()).
+        then(data => populateValues(data))
+    }
+
+    function populateValues(data) {
+        console.log(data[0]);
+        let countryName = data[0].name;
+        let capital = data[0].capital;
+        let flag = data[0].flag;
+        let population = data[0].population;
+        let currencyName = data[0].currencies[0].name;
+        let currencySymbol = data[0].currencies[0].symbol;
+
+        let htmlData = `
+  
+        <div class="card shadow p-7 mb-5 bg-body rounded" style="width: 18rem;">
+  <img src="${flag}" class="card-img-top" alt="...">
+  <div class="card-body ">
+    <h5 class="card-title">Country Name : ${countryName}</h5>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">Capital : ${capital}</li>
+    <li class="list-group-item">Population : ${population}</li>
+    <li class="list-group-item">Currency Name : ${currencyName}</li>
+    <li class="list-group-item">Currency symbol : ${currencySymbol}</li>
+  </ul>
+
+</div>
+
+        `
+
+        document.querySelector("#result").innerHTML = htmlData;
+    }
+</script>
+
+</html>
